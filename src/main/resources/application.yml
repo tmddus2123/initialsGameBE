@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: initialsgame-backend
+  profiles:
+    active: local
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+
+dictionary:
+  api:
+    base-url: https://stdict.korean.go.kr/api/search.do
+    key: ${DICTIONARY_API_KEY:}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  default-produces-media-type: application/json
+
+server:
+  port: 8080
