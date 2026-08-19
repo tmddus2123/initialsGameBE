@@ -11,8 +11,6 @@ public interface WordRepository extends JpaRepository<Word, Long> {
 
 	Optional<Word> findByText(String text);
 
-	List<Word> findByDefinitionsIsNull();
-
 	List<Word> findByInitialsAndSyllableCount(String initials, int syllableCount);
 
 	@Query(value = "SELECT * FROM words WHERE syllable_count IN (:syllableCounts) ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
