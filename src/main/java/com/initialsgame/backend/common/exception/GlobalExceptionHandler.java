@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @RestControllerAdvice
@@ -37,6 +38,16 @@ public class GlobalExceptionHandler {
 			errors
 		);
 		return ResponseEntity.badRequest().body(response);
+	}
+
+	@ExceptionHandler(NoResourceFoundException.class)
+	public ResponseEntity<ApiErrorResponse> handleNoResourceFoundException(NoResourceFoundException e) {
+		ApiErrorResponse response = ApiErrorResponse.of(
+			HttpStatus.NOT_FOUND.value(),
+			"NOT_FOUND",
+			"요청한 경로를 찾을 수 없습니다."
+		);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 	}
 
 	@ExceptionHandler(Exception.class)
